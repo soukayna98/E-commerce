@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 import java.util.Random;
 import java.util.RandomAccess;
@@ -21,6 +22,9 @@ public class LightEcomApplication implements CommandLineRunner {
     private ProductRepository productRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    //pour affichage d id
+    @Autowired
+    private RepositoryRestConfiguration repositoryRestConfiguration;
 
 
     public static void main(String[] args) {
@@ -29,6 +33,8 @@ public class LightEcomApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+//pour que l'affichage json affiche aussi le id , auparavant ne s'affiche pas id
+        repositoryRestConfiguration.exposeIdsFor(Product.class,Category.class);
 
         categoryRepository.save(new Category(null,"ordinateur",null,null,null));
         categoryRepository.save(new Category(null,"Imprimante",null,null,null));
